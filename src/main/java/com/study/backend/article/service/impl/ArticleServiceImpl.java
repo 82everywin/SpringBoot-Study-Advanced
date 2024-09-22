@@ -7,6 +7,8 @@ import com.study.backend.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
@@ -15,7 +17,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article create(AddArticleReqDto reqDto) {
-        System.out.println(reqDto.getTitle() + " " + reqDto.getContent());
         Article article = Article.builder()
                 .title(reqDto.getTitle())
                 .content(reqDto.getContent())
@@ -23,4 +24,5 @@ public class ArticleServiceImpl implements ArticleService {
 
         return articleRepository.save(article);
     }
+
 }
