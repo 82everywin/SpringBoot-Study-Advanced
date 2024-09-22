@@ -38,6 +38,7 @@ public class ArticleController {
         return ResponseEntity.status(OK).body(resDtos);
     }
 
+    @Operation(summary = "게시글 단일 조회", description = "게시물 Id를 경로변수로 하여, 게시글을 단일 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDetailResDto> getOne(@PathVariable Long id){
         Article article = articleService.findById(id);
