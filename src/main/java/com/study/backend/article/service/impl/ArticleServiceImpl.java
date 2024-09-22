@@ -5,9 +5,11 @@ import com.study.backend.article.dto.req.AddArticleReqDto;
 import com.study.backend.article.repository.ArticleRepository;
 import com.study.backend.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +32,12 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = articleRepository.findAll();
 
         return articles;
+    }
+
+    @Override
+    public Article findById(Long id) {
+        Article article = articleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Article not found"));
+
+        return article;
     }
 }
