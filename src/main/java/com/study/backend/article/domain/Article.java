@@ -1,8 +1,9 @@
-package com.study.backend.blog.domain;
+package com.study.backend.article.domain;
 
 import com.study.backend.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -19,4 +20,10 @@ public class Article extends BaseEntity {
 
     @Column(nullable = false)
     private String content;
+
+    @Builder
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
