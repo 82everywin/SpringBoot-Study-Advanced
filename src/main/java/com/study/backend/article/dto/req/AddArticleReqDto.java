@@ -17,4 +17,10 @@ public class AddArticleReqDto {
         this.content = content;
     }
 
+    public static Article toEntity(AddArticleReqDto article) {
+        return Article.builder()
+                .title(article.getTitle())
+                .content(article.getContent())
+                .build();
+    }
 }
