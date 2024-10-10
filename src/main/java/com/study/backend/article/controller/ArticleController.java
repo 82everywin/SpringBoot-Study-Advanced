@@ -24,27 +24,20 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<ArticleDetailResDto> create(@RequestBody AddArticleReqDto reqDto){
 
-        Article article = articleService.create(reqDto);
-
-        return ResponseEntity.status(CREATED).body(ArticleDetailResDto.toDto(article));
+        return ResponseEntity.status(CREATED).body(articleService.create(reqDto));
     }
 
     @Operation(summary = "게시글 전체 조회", description = "게시글을 전체 조회합니다.")
     @GetMapping
     public ResponseEntity<List<ArticleDetailResDto>> getAll(){
 
-        List<ArticleDetailResDto> resDtos = articleService.findAll().stream().map(ArticleDetailResDto::toDto).toList();
-
-        return ResponseEntity.status(OK).body(resDtos);
+        return ResponseEntity.status(OK).body(articleService.findAll());
     }
 
     @Operation(summary = "게시글 단일 조회", description = "게시물 Id를 경로변수로 하여, 게시글을 단일 조회합니다.")
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDetailResDto> getOne(@PathVariable Long id){
-        Article article = articleService.findById(id);
 
-        ArticleDetailResDto resDto = ArticleDetailResDto.toDto(article);
-
-        return ResponseEntity.status(OK).body(resDto);
+        return ResponseEntity.status(OK).body(articleService.findById(id));
     }
 }
