@@ -1,6 +1,7 @@
 package com.study.backend.article.dto.res;
 
 import com.study.backend.article.domain.Article;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +12,7 @@ public class ArticleDetailResDto {
     private String title;
     private String content;
 
+    @Builder
     private ArticleDetailResDto(Long id, String title, String content) {
         this.id = id;
         this.title = title;
