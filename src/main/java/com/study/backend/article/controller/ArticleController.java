@@ -2,6 +2,7 @@ package com.study.backend.article.controller;
 
 import com.study.backend.article.domain.Article;
 import com.study.backend.article.dto.req.AddArticleReqDto;
+import com.study.backend.article.dto.req.UpdateArticleReqDto;
 import com.study.backend.article.dto.res.ArticleDetailResDto;
 import com.study.backend.article.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/articles")
+@RequestMapping("api/articles")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -38,6 +39,11 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDetailResDto> getOne(@PathVariable Long id){
 
-        return ResponseEntity.status(OK).body(articleService.findById(id));
+        return ResponseEntity.status(OK).body(articleService.findOne(id));
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<ArticleDetailResDto> update(@PathVariable Long id, @RequestBody UpdateArticleReqDto reqDto){
+        return ResponseEntity.status(OK).body(articleService.update(id, reqDto));
     }
 }

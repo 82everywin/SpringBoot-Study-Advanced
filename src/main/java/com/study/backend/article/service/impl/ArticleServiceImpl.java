@@ -2,16 +2,15 @@ package com.study.backend.article.service.impl;
 
 import com.study.backend.article.domain.Article;
 import com.study.backend.article.dto.req.AddArticleReqDto;
+import com.study.backend.article.dto.req.UpdateArticleReqDto;
 import com.study.backend.article.dto.res.ArticleDetailResDto;
 import com.study.backend.article.repository.ArticleRepository;
 import com.study.backend.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public ArticleDetailResDto create(AddArticleReqDto reqDto) {
 
-        Article article = articleRepository.save(Article.builder()
-                                   .title(reqDto.getTitle())
-                                    .content(reqDto.getContent())
-                                    .build());
+        Article article = articleRepository.save(AddArticleReqDto.toEntity(reqDto));
 
         return ArticleDetailResDto.toDto(article);
     }
@@ -42,12 +38,24 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public ArticleDetailResDto findById(Long id) {
-        Article article = articleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Article not found"));
+    public ArticleDetailResDto findOne(Long id) {
+        Article article = findById(id);
 
         return ArticleDetailResDto.toDto(article);
     }
 
+    @Override
     @Transactional
-    public ArticleDetailResDto update(AddArticleReqDto reqDto) {}
+    public ArticleDetailResDto update(Long id, UpdateArticleReqDto reqDto) {
+        Article article = findById(id);
+        article.update(reqDto.getTitle(), reqDto.getContent());
+        return ArticleDetailResDto.toDto(article);
+    }
+
+
+    private Article findById(Long id){
+        return articleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Article not found"));
+    }
+
+
 }

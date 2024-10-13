@@ -3,6 +3,7 @@ package com.study.backend.article.service;
 
 import com.study.backend.article.domain.Article;
 import com.study.backend.article.dto.req.AddArticleReqDto;
+import com.study.backend.article.dto.req.UpdateArticleReqDto;
 import com.study.backend.article.dto.res.ArticleDetailResDto;
 
 import java.util.List;
@@ -17,5 +18,9 @@ public interface ArticleService {
     List<ArticleDetailResDto> findAll();
 
     // 게시글 단일 조회
-    ArticleDetailResDto findById(Long id);
+    ArticleDetailResDto findOne(Long id);
+
+    // 게시글 수정 조회
+    ArticleDetailResDto update(Long id, UpdateArticleReqDto reqDto);
+
 }
