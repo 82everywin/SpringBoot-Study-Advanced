@@ -41,7 +41,8 @@ public class ArticleController {
 
         return ResponseEntity.status(OK).body(articleService.findOne(id));
     }
-    
+
+    @Operation(summary = "게시글 수정", description = "게시물 Id를 경로변수로 하여 조회하고, 수정합니다.")
     @PutMapping("/{id}")
     public ResponseEntity<ArticleDetailResDto> update(@PathVariable Long id, @RequestBody UpdateArticleReqDto reqDto){
         return ResponseEntity.status(OK).body(articleService.update(id, reqDto));
